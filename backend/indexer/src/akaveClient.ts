@@ -37,7 +37,7 @@ async function uploadFile(
   // Convert JSON to string and create a Buffer
   const jsonBuffer = Buffer.from(JSON.stringify(jsonData));
   form.append("file", jsonBuffer, `${fileName}.json`);
-
+  fs.writeFileSync(`./${fileName}.json`, jsonBuffer);
   try {
     const response = await axios.post(
       `${API_URL}/buckets/${bucketName}/files`,

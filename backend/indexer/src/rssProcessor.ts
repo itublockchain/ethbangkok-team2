@@ -1,4 +1,5 @@
 import Parser from "rss-parser";
+import fs from "fs";
 
 type CustomFeed = Parser.Output<{
   "content:encoded"?: string;
@@ -13,15 +14,11 @@ const stripHtmlTags = (html: string): string => {
 export const fetchRssData = async (rssUrl: string) => {
   const feed = await parser.parseURL(rssUrl);
   const items = feed.items.map((item) => ({
-    title: item.title || "No Title",
-    description: stripHtmlTags(
-      item.contentSnippet || item.content || "No Description"
-    ),
-    content: stripHtmlTags(
-      item["content:encoded"] || item.content || "No Content"
-    ),
-    link: item.link || "No Link",
-    pubDate: item.pubDate || "No Date",
+    title: item.title || null,
+    description: stripHtmlTags(item.contentSnippet || item.content || ""),
+    content: stripHtmlTags(item["content:encoded"] || item.content || ""),
+    link: item.link || null,
+    pubDate: item.pubDate || null,
   }));
 
   return items;

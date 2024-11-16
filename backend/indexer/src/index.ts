@@ -10,7 +10,7 @@ const createDocument = async (data: object, name: string) => {
 };
 
 const main = async () => {
-  const rssUrl = "https://medium.com/feed/@StartupGrind";
+  const rssUrl = "https://filecoinfoundation.medium.com/feed";
   try {
     const url = new URL(rssUrl);
     const domain = url.hostname;

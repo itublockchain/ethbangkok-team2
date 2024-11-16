@@ -8,7 +8,7 @@ dotenv.config();
 const seed = process.env.SEED!;
 const providerEndpoint = "wss://turing-rpc.avail.so/ws";
 
-export const main = async (data: string) => {
+export const updateString = async (data: string) => {
   const bool = await cryptoWaitReady();
   if (!bool) {
     console.log("cryptoWaitReady failed");
@@ -32,9 +32,8 @@ export const main = async (data: string) => {
   console.log(
     "Who=" + result.event.who + ", DataHash=" + result.event.dataHash
   );
-  console.log("TxHash=" + result.txHash + ", BlockHash=" + result.blockHash);
-
+  console.log("result: ", result);
   process.exit();
 };
 
-main("Hello, world!");
+updateString("Hello, world!");

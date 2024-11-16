@@ -1,0 +1,4 @@
+.env
+.env.*
+sign/.env
+node_modules
