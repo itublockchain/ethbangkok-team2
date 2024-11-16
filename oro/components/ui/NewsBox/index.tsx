@@ -12,7 +12,7 @@ type Props = {
 export default function NewsBox({ item }: Props) {
   const dispatch = useDispatch()
 
-  console.log(item.title)
+  console.log(item.link)
 
   return (
     <Link href={{
@@ -20,10 +20,10 @@ export default function NewsBox({ item }: Props) {
     }} asChild>
         <Pressable onPress={() => {
             Haptics.selectionAsync()
-            // dispatch({ type: 'news/setNews', payload: {image: "https://picsum.photos/1080/1920", ...item} })
+            dispatch({ type: 'news/setNews', payload: {...item} })
         }}>
             <View key={item.id} style={styles.container}>
-                <Image source={{ uri: "https://picsum.photos/1080/1920" }} style={styles.image} />
+                <Image source={{ uri: item.images.length > 0 ? item.images[0] : "https://picsum.photos/1080/1920" }} style={styles.image} />
                 <Text style={styles.news_heading}>{item.title.length > 48 ? `${item.title.slice(0, 48)}...` : item.title}</Text>
                 <Text style={styles.news_desc}>{item.content.length > 256 ? `${item.content.slice(0, 256)}...` : item.body}</Text>
             </View>
