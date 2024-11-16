@@ -12,22 +12,34 @@ import NewsBox from '@/components/ui/NewsBox'
 
 // API
 import { News } from "@/utils"
+import { getNews } from '@/client/akave'
 
 type Props = {}
 
 export default function Home({}: Props) {
 
-  const { data, isFetched, isLoading, refetch } = useQuery({
-    queryKey: ["news"],
-    queryFn: News.getNews,
+  // const { data, isFetched, isLoading, refetch } = useQuery({
+  //   queryKey: ["news"],
+  //   queryFn: News.getNews,
+  // })
+
+  const {  data, isLoading, refetch } = useQuery({
+    queryKey: ["elma"],
+    queryFn: async () => await getNews("medium.com"),
   })
+
+  console.log(data && data[0])
+
+  // fetch("http://172.20.10.2:8000/buckets/medium.com/files").then((res) => {
+  //   console.log(res)
+  // }).catch((err) => {console.error(err)})
 
   // const isLoading = true
 
   if (isLoading) {
     return (
       <SafeAreaView style={styles.container}>
-          <Text style={styles.title}>LIBERTE</Text>
+          <Text style={styles.title}>LIBRE</Text>
           <Text style={styles.motto}>Uncensorable news source</Text>
           {/* <Link href={"/detail"}>
               <Text>Sayfa değiştir</Text>
@@ -42,7 +54,7 @@ export default function Home({}: Props) {
   return (
     <SafeAreaView style={styles.container}>
         <View style={styles.title_container}>
-          <Text style={styles.title}>LIBERTE</Text>
+          <Text style={styles.title}>LIBRE</Text>
           <Text style={styles.motto}>uncensorable news source</Text>
         </View>
         {/* <Link href={"/detail"}>
@@ -54,12 +66,13 @@ export default function Home({}: Props) {
             style={styles.topGradient}
           />
           <FlatList
-            style={styles.news_container} refreshControl={
+            style={styles.news_container} 
+            refreshControl={
               <RefreshControl refreshing={isLoading} onRefresh={refetch} />
             }
-            data={data}
+            data={data && data[0]}
             renderItem={({item}: {item: any}) => <NewsBox item={item} />}
-            keyExtractor={(item: any) => item.id}
+            keyExtractor={(item: any) => item.link}
           />
           <LinearGradient
             colors={['rgba(246,245,242,0)', 'rgba(246,245,242,1)']}
