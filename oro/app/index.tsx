@@ -53,23 +53,14 @@ export default function Home({}: Props) {
             colors={['rgba(246,245,242,1)', 'rgba(246,245,242,0)']}
             style={styles.topGradient}
           />
-          <ScrollView style={styles.news_container} refreshControl={
-            <RefreshControl refreshing={isLoading} onRefresh={refetch} />
-          }>
-            {/* {
-              isFetched && data !== undefined && data.map((item: NewsItem) => {
-                return (
-                  // <Text key={item.id}>{item.title}</Text>
-                  <NewsBox key={item.id} item={item} />
-                )
-              })
-            } */}
-            <FlatList
-              data={data}
-              renderItem={({item}: {item: any}) => <NewsBox item={item} />}
-              keyExtractor={(item: any) => item.id}
-            />
-          </ScrollView>
+          <FlatList
+            style={styles.news_container} refreshControl={
+              <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+            }
+            data={data}
+            renderItem={({item}: {item: any}) => <NewsBox item={item} />}
+            keyExtractor={(item: any) => item.id}
+          />
           <LinearGradient
             colors={['rgba(246,245,242,0)', 'rgba(246,245,242,1)']}
             style={styles.bottomGradient}
@@ -111,7 +102,7 @@ const styles = StyleSheet.create({
   },
   news_container: {
     paddingHorizontal: getWidth(22),
-    paddingVertical: 18
+    paddingVertical: 18,
   },
   topGradient: {
     position: 'absolute',
