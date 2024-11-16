@@ -1,0 +1,30 @@
+[package]
+edition = "2021"
+name = "tlsn-json"
+version = "0.0.0"
+publish = false
+
+[dependencies]
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+hyper = { workspace = true, features = ["client", "http1", "http2"] }
+tokio = { workspace = true, features = ["full"] }
+axum = { version = "0.6" }
+tlsn-core = { workspace = true }
+tlsn-common = { workspace = true }
+tlsn-prover = { workspace = true }
+tlsn-formats = { workspace = true }
+http-body-util = { version = "0.1" }
+hyper-util = { version = "0.1", features = ["full"] }
+tokio-util = { version = "0.7" }
+bincode = { workspace = true } # If workspace doesn't declare it, add it locally
+tracing-subscriber = { version = "0.3" }
+tlsn-examples = { path = "../examples" }
+reqwest = { version = "0.11", features = ["json"] }
+
+
+
+
+[[bin]]
+name = "tlsn-json"
+path = "prove.rs"
