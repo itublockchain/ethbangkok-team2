@@ -6,11 +6,13 @@ import type { NewsItem } from '@/index'
 import { useDispatch } from 'react-redux';
 
 type Props = {
-    item: NewsItem
+    item: any
 }
 
 export default function NewsBox({ item }: Props) {
   const dispatch = useDispatch()
+
+  console.log(item.title)
 
   return (
     <Link href={{
@@ -18,12 +20,12 @@ export default function NewsBox({ item }: Props) {
     }} asChild>
         <Pressable onPress={() => {
             Haptics.selectionAsync()
-            dispatch({ type: 'news/setNews', payload: {image: "https://picsum.photos/1080/1920", ...item} })
+            // dispatch({ type: 'news/setNews', payload: {image: "https://picsum.photos/1080/1920", ...item} })
         }}>
             <View key={item.id} style={styles.container}>
                 <Image source={{ uri: "https://picsum.photos/1080/1920" }} style={styles.image} />
                 <Text style={styles.news_heading}>{item.title.length > 48 ? `${item.title.slice(0, 48)}...` : item.title}</Text>
-                <Text style={styles.news_desc}>{item.body.length > 256 ? `${item.body.slice(0, 256)}...` : item.body}</Text>
+                <Text style={styles.news_desc}>{item.content.length > 256 ? `${item.content.slice(0, 256)}...` : item.body}</Text>
             </View>
         </Pressable>
     </Link>
