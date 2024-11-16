@@ -2,6 +2,7 @@ use http_body_util::Empty;
 use hyper::{body::Bytes, Request, StatusCode};
 use hyper_util::rt::TokioIo;
 use tokio_util::compat::{FuturesAsyncReadCompatExt, TokioAsyncReadCompatExt};
+use tracing_subscriber;
 
 use axum::routing::post;
 use axum::{Json, Router};
@@ -16,6 +17,7 @@ use tlsn_prover::{Prover, ProverConfig};
 #[derive(Deserialize)]
 struct CreateProof {
     domain: String,
+    uri: String,
 }
 
 #[derive(Serialize)]
@@ -31,32 +33,34 @@ async fn create_proof(
     Json(payload): Json<CreateProof>,
 ) -> Result<Json<ProofResponse>, ()> {
     let domain = payload.domain;
+    let uri = payload.uri;
+    let new_uri = uri.as_str();
     let new_domain = domain.as_str();
     let (prover_socket, notary_socket) = tokio::io::duplex(1 << 16);
     tokio::spawn(run_notary(notary_socket.compat()));
     let config = ProverConfig::builder()
-    .server_name(new_domain)
+    .server_name(new_domain) 
     .protocol_config(
         ProtocolConfig::builder()
             .max_sent_data(1024)
-            .max_recv_data(4096)
+            .max_recv_data(16384)
             .build()
             .map_err(|e| {
-                (
-                )
+                println!("Failed to build protocol config: {:?}", e);
+                ()
             })?,
     )
     .build();
     println!("config: {:?}", config);
-
+    println!("Starting prover setup...");
     let prover = Prover::new(config.unwrap())
-    .setup(prover_socket.compat())
-    .await
-    .map_err(|e| {
-    (
-        )
-    })?;
-    println!("prover created.");
+        .setup(prover_socket.compat())
+        .await
+        .map_err(|e| {
+            println!("Prover setup failed: {:?}", e);
+            ()
+        })?;
+    println!("Prover setup complete, connecting...");
     let client_socket = tokio::net::TcpStream::connect((new_domain, 443))
     .await
     .map_err(|e| {
@@ -67,16 +71,14 @@ async fn create_proof(
         )
     })?;
 
-    let (mpc_tls_connection, prover_fut) =
-        prover.connect(client_socket.compat()).await.map_err(|e| {
-            println!("error: {:?}", e);
+    let (mpc_tls_connection, prover_fut) = prover.connect(client_socket.compat()).await.map_err(|e| {
+        println!("Prover connection failed: {:?}", e);
+        ()
+    })?;
+    println!("Prover connected successfully.");
 
-            (
-               
-            )
-        })?;
     let mpc_tls_connection = TokioIo::new(mpc_tls_connection.compat());
-        println!("mpc_tls_connection: ");
+    println!("mpc_tls_connection: {:?}", mpc_tls_connection);
 
     let prover_task = tokio::spawn(prover_fut);
 
@@ -92,12 +94,13 @@ async fn create_proof(
             })?;
 
     tokio::spawn(connection);
+    println!("request sender: {:?}", request_sender);
 
     let request = Request::builder()
-        .uri("/")
+        .uri(new_uri)
         .header("Host", new_domain)
         .header("Accept", "*/*")
-        .header("Accept-Encoding", "identity")
+        .header("Accept-Encoding", "gzip")
         .header("Connection", "close")
         .header("User-Agent", USER_AGENT)
         .body(Empty::<Bytes>::new())
@@ -106,7 +109,7 @@ async fn create_proof(
                 
             )
         })?;
-        println!("request sending");
+        println!("request sending {:?}", request);
     let response = request_sender.send_request(request).await.map_err(|e| {
         println!("error: {:?}", e);
 
@@ -187,6 +190,7 @@ async fn create_proof(
 
 #[tokio::main]
 async fn main() {
+    tracing_subscriber::fmt::init();
     let app = Router::new().route("/proof", post(
         create_proof
     ));

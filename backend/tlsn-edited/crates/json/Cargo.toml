@@ -7,7 +7,7 @@ publish = false
 [dependencies]
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
-hyper = { workspace = true, features = ["client", "http1"] }
+hyper = { workspace = true, features = ["client", "http1", "http2"] }
 tokio = { workspace = true, features = ["full"] }
 axum = { version = "0.6" }
 tlsn-core = { workspace = true }
@@ -20,6 +20,8 @@ tokio-util = { version = "0.7" }
 bincode = { workspace = true } # If workspace doesn't declare it, add it locally
 tracing-subscriber = { version = "0.3" }
 tlsn-examples = { path = "../examples" }
+reqwest = { version = "0.11", features = ["json"] }
+
 
 
 
