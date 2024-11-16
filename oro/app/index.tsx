@@ -23,9 +23,9 @@ export default function Home({}: Props) {
   //   queryFn: News.getNews,
   // })
 
-  const {  data, isLoading, refetch } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["elma"],
-    queryFn: async () => await getNews("medium.com"),
+    queryFn: async () => await getNews("filecoinfoundation.medium.com"),
   })
 
   console.log(data && data[0])
@@ -39,7 +39,7 @@ export default function Home({}: Props) {
   if (isLoading) {
     return (
       <SafeAreaView style={styles.container}>
-          <Text style={styles.title}>LIBRE</Text>
+          <Text style={styles.title}>LIBRE NEWS</Text>
           <Text style={styles.motto}>Uncensorable news source</Text>
           {/* <Link href={"/detail"}>
               <Text>Sayfa değiştir</Text>
@@ -54,7 +54,7 @@ export default function Home({}: Props) {
   return (
     <SafeAreaView style={styles.container}>
         <View style={styles.title_container}>
-          <Text style={styles.title}>LIBRE</Text>
+          <Text style={styles.title}>LIBRE NEWS</Text>
           <Text style={styles.motto}>uncensorable news source</Text>
         </View>
         {/* <Link href={"/detail"}>

@@ -7,6 +7,8 @@ export type NewsItem = {
   id: number;
   title: string;
   body: string;
+  images: string[];
+  link: string;
 };
 
 // Define the initial state using that type
