@@ -11,6 +11,7 @@ import { StatusBar } from 'expo-status-bar'
 import { SafeAreaView } from '@/components/core'
 import { formatDate } from '@/utils'
 import { getWidth } from '@/utils/Spacing'
+import { attestations } from '@/constants/Const'
 
 export default function Detail() {
   const { top } = useSafeAreaInsets()
@@ -47,8 +48,16 @@ export default function Detail() {
           Haptic.impactAsync()
           await WebBrowser.openBrowserAsync(state.value.link);
         }}>
-          <Text  style={styles.redirect_button_text}>
+          <Text style={styles.redirect_button_text}>
             OPEN
+          </Text>
+        </Pressable>
+        <Pressable style={styles.redirect_button_container} hitSlop={24} onPress={async () => {
+          Haptic.impactAsync()
+          await WebBrowser.openBrowserAsync(`https://testnet-scan.sign.global/attestation/onchain_evm_80002_${(attestations).find((item) => item.url === state.value.link)?.attestationId}`);
+        }}>
+          <Text style={styles.redirect_button_text}>
+            SEE ATTESTATION
           </Text>
         </Pressable>
       </ScrollView>
@@ -77,8 +86,8 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   header_title: {
-    fontFamily: 'PlayfairDisplay_900Black',
-    color: '#fff',
+    fontFamily: 'HelveticaNeue-Black',
+    color: '#F6F5F2',
     fontSize: 32,
     marginBottom: 16,
     zIndex: 2,
@@ -89,35 +98,36 @@ const styles = StyleSheet.create({
     paddingVertical: 16
   },
   content_title: {
-    fontFamily: 'PlayfairDisplay_900Black',
+    fontFamily: 'HelveticaNeue-Black',
     fontSize: 24,
     marginBottom: 16,
     zIndex: 2,
   },
   content_timestamp: {
-    fontFamily: 'PlayfairDisplay_400Regular',
+    fontFamily: 'HelveticaNeue-Thin',
     fontSize: 18,
     marginBottom: 16,
   },
   content_body: {
-    fontFamily: 'PlayfairDisplay_400Regular',
+    fontFamily: 'HelveticaNeue-Light',
     fontSize: 18,
     marginBottom: 16,
     flexWrap: 'wrap',
-    textAlign: 'justify',
     overflow: 'visible'
   },
   redirect_button_container: {
     backgroundColor: 'transparent',
     borderWidth: 1,
+    borderRadius: 8,
     paddingVertical: 12,
+    borderColor: "rgba(0,0,0,.5)",
     alignItems: 'center',
     justifyContent: 'center',
     marginHorizontal: getWidth(22),
-    marginBottom: 24,
+    marginBottom: 12,
   },
   redirect_button_text: {
-    fontFamily: 'PlayfairDisplay_400Regular',
+    fontFamily: 'HelveticaNeue-Light',
     fontSize: 16,
   }
 })
