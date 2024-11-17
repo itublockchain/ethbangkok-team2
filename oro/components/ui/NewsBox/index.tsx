@@ -12,7 +12,7 @@ type Props = {
 export default function NewsBox({ item }: Props) {
   const dispatch = useDispatch()
 
-  console.log(item.link)
+//   console.log(item)
 
   return (
     <Link href={{
@@ -35,21 +35,26 @@ export default function NewsBox({ item }: Props) {
 const styles = StyleSheet.create({
     container: {
         borderWidth: 1,
-        marginBottom: 32
+        borderColor: "rgba(0,0,0,.2)",
+        marginBottom: 32,
+        borderRadius: 16
     },
     image: {
         aspectRatio: 16 / 9,
         width: '100%',
         marginBottom: 12,
+        borderTopLeftRadius: 16,
+        borderTopRightRadius: 16,
     },
     news_heading: {
-        fontFamily: 'PlayfairDisplay_900Black',
+        fontFamily: 'HelveticaNeue-Black',
         fontSize: 24,
+        marginTop: 12,
         marginHorizontal: 12,
         marginBottom: 12,
     },
     news_desc: {
-        fontFamily: 'PlayfairDisplay_400Regular',
+        fontFamily: 'HelveticaNeue-Light',
         fontSize: 16,
         marginHorizontal: 12,
         marginBottom: 32,

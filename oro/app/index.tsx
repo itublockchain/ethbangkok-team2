@@ -54,7 +54,9 @@ export default function Home({}: Props) {
   return (
     <SafeAreaView style={styles.container}>
         <View style={styles.title_container}>
-          <Text style={styles.title}>LIBRE NEWS</Text>
+          <View style={styles.logo_container}>
+            <Text style={styles.title}>LIBRE NEWS</Text>
+          </View>
           <Text style={styles.motto}>uncensorable news source</Text>
         </View>
         {/* <Link href={"/detail"}>
@@ -62,7 +64,7 @@ export default function Home({}: Props) {
         </Link> */}
         <View style={styles.news_gradient_container}>
           <LinearGradient
-            colors={['rgba(246,245,242,1)', 'rgba(246,245,242,0)']}
+            colors={['rgba(246,245,242,.4)', 'rgba(246,245,242,0)']}
             style={styles.topGradient}
           />
           <FlatList
@@ -75,7 +77,7 @@ export default function Home({}: Props) {
             keyExtractor={(item: any) => item.link}
           />
           <LinearGradient
-            colors={['rgba(246,245,242,0)', 'rgba(246,245,242,1)']}
+            colors={['rgba(246,245,242,0)', 'rgba(246,245,242,.5)']}
             style={styles.bottomGradient}
           />
         </View>
@@ -89,19 +91,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#F6F5F2',
   },
   title_container: {
-    marginTop: 18,
+    marginTop: 24,
+    marginBottom: 12,
+  },
+  logo_container: {
+    flexDirection: 'row',
+    gap: 12,
   },
   title: {
     // fontFamily: 'PlayfairDisplay_500Medium',
-    fontFamily: 'PlayfairDisplay_900Black',
+    fontFamily: 'HelveticaNeue-Black',
     paddingHorizontal: getWidth(22),
     fontSize: 32,
   },
   motto: {
-    fontFamily: 'PlayfairDisplay_400Regular',
+    fontFamily: 'HelveticaNeue-Light',
     paddingHorizontal: getWidth(22),
     fontSize: 20,
-    marginBottom: 24,
   },
   indicator_container: {
     flex: 1,

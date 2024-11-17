@@ -17,18 +17,22 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    PlayfairDisplay_400Regular: require('../node_modules/@expo-google-fonts/playfair-display/PlayfairDisplay_400Regular.ttf'),
-    PlayfairDisplay_400Regular_Italic: require('../node_modules/@expo-google-fonts/playfair-display/PlayfairDisplay_400Regular_Italic.ttf'),
-    PlayfairDisplay_500Medium: require('../node_modules/@expo-google-fonts/playfair-display/PlayfairDisplay_500Medium.ttf'),
-    PlayfairDisplay_500Medium_Italic: require('../node_modules/@expo-google-fonts/playfair-display/PlayfairDisplay_500Medium_Italic.ttf'),
-    PlayfairDisplay_600SemiBold: require('../node_modules/@expo-google-fonts/playfair-display/PlayfairDisplay_600SemiBold.ttf'),
-    PlayfairDisplay_600SemiBold_Italic: require('../node_modules/@expo-google-fonts/playfair-display/PlayfairDisplay_600SemiBold_Italic.ttf'),
-    PlayfairDisplay_700Bold: require('../node_modules/@expo-google-fonts/playfair-display/PlayfairDisplay_700Bold.ttf'),
-    PlayfairDisplay_700Bold_Italic: require('../node_modules/@expo-google-fonts/playfair-display/PlayfairDisplay_700Bold_Italic.ttf'),
-    PlayfairDisplay_800ExtraBold: require('../node_modules/@expo-google-fonts/playfair-display/PlayfairDisplay_800ExtraBold.ttf'),
-    PlayfairDisplay_800ExtraBold_Italic: require('../node_modules/@expo-google-fonts/playfair-display/PlayfairDisplay_800ExtraBold_Italic.ttf'),
-    PlayfairDisplay_900Black: require('../node_modules/@expo-google-fonts/playfair-display/PlayfairDisplay_900Black.ttf'),
-    PlayfairDisplay_900Black_Italic: require('../node_modules/@expo-google-fonts/playfair-display/PlayfairDisplay_900Black_Italic.ttf'),
+    'HelveticaNeue-Black': require('../assets/helvetica-neue/HelveticaNeueBlack.otf'),
+    'HelveticaNeue-BlackItalic': require('../assets/helvetica-neue/HelveticaNeueBlackItalic.otf'),
+    'HelveticaNeue-Bold': require('../assets/helvetica-neue/HelveticaNeueBold.otf'),
+    'HelveticaNeue-BoldItalic': require('../assets/helvetica-neue/HelveticaNeueBoldItalic.otf'),
+    'HelveticaNeue-Heavy': require('../assets/helvetica-neue/HelveticaNeueHeavy.otf'),
+    'HelveticaNeue-HeavyItalic': require('../assets/helvetica-neue/HelveticaNeueHeavyItalic.otf'),
+    'HelveticaNeue-Italic': require('../assets/helvetica-neue/HelveticaNeueItalic.ttf'),
+    'HelveticaNeue-Light': require('../assets/helvetica-neue/HelveticaNeueLight.otf'),
+    'HelveticaNeue-LightItalic': require('../assets/helvetica-neue/HelveticaNeueLightItalic.otf'),
+    'HelveticaNeue-Medium': require('../assets/helvetica-neue/HelveticaNeueMedium.otf'),
+    'HelveticaNeue-MediumItalic': require('../assets/helvetica-neue/HelveticaNeueMediumItalic.otf'),
+    'HelveticaNeue-Roman': require('../assets/helvetica-neue/HelveticaNeueRoman.otf'),
+    'HelveticaNeue-Thin': require('../assets/helvetica-neue/HelveticaNeueThin.otf'),
+    'HelveticaNeue-ThinItalic': require('../assets/helvetica-neue/HelveticaNeueThinItalic.otf'),
+    'HelveticaNeue-UltraLight': require('../assets/helvetica-neue/HelveticaNeueUltraLight.otf'),
+    'HelveticaNeue-UltraLightItalic': require('../assets/helvetica-neue/HelveticaNeueUltraLightItalic.otf'),
   });
 
   useEffect(() => {
