@@ -28,7 +28,7 @@ export default function Home({}: Props) {
     queryFn: async () => await getNews("filecoinfoundation.medium.com"),
   })
 
-  console.log(data && data[0])
+  // console.log(data && data[0])
 
   // fetch("http://172.20.10.2:8000/buckets/medium.com/files").then((res) => {
   //   console.log(res)
@@ -39,8 +39,10 @@ export default function Home({}: Props) {
   if (isLoading) {
     return (
       <SafeAreaView style={styles.container}>
-          <Text style={styles.title}>LIBRE NEWS</Text>
-          <Text style={styles.motto}>Uncensorable news source</Text>
+          <View style={styles.title_container}>
+            <Text style={styles.title}>LIBRE NEWS</Text>
+            <Text style={styles.motto}>uncensorable news source</Text>
+          </View>
           {/* <Link href={"/detail"}>
               <Text>Sayfa değiştir</Text>
           </Link> */}
@@ -54,9 +56,7 @@ export default function Home({}: Props) {
   return (
     <SafeAreaView style={styles.container}>
         <View style={styles.title_container}>
-          <View style={styles.logo_container}>
-            <Text style={styles.title}>LIBRE NEWS</Text>
-          </View>
+          <Text style={styles.title}>LIBRE NEWS</Text>
           <Text style={styles.motto}>uncensorable news source</Text>
         </View>
         {/* <Link href={"/detail"}>
