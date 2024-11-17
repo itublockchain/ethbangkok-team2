@@ -8,7 +8,7 @@ dotenv.config();
 const seed = process.env.SEED!;
 const providerEndpoint = "wss://turing-rpc.avail.so/ws";
 
-export const updateString = async (data: string) => {
+export const updateString = async (dataArray: string[]) => {
   const bool = await cryptoWaitReady();
   if (!bool) {
     console.log("cryptoWaitReady failed");
@@ -16,24 +16,23 @@ export const updateString = async (data: string) => {
   }
   const account = new Keyring({ type: "sr25519" }).addFromUri(seed);
   const sdk = await SDK.New(providerEndpoint);
-
-  const result = await sdk.tx.dataAvailability.submitData(
-    data,
-    WaitFor.BlockInclusion,
-    account,
-    { app_id: 199 }
-  );
-  if (result.isErr) {
-    console.log(result.reason);
-    process.exit(1);
+  let index = 0;
+  for (const data of dataArray) {
+    const result = await sdk.tx.dataAvailability.submitData(
+      data,
+      WaitFor.BlockInclusion,
+      account,
+      { app_id: 199 }
+    );
+    if (result.isErr) {
+      console.log(result.reason);
+      process.exit(1);
+    }
+    console.log(
+      "DataHash= " + result.event.dataHash,
+      "BlockHash=" + result.blockHash,
+      "Index=" + index
+    );
+    index++;
   }
-
-  console.log("Data=" + result.txData.data);
-  console.log(
-    "Who=" + result.event.who + ", DataHash=" + result.event.dataHash
-  );
-  console.log("result: ", result);
-  process.exit();
 };
-
-updateString("Hello, world!");

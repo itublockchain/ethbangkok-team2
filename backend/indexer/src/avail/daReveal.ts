@@ -21,6 +21,7 @@ export const updateString = async () => {
   );
   /*   console.log("result0: ", result0);
    */
+
   for (let i = 0; i < result0.block.extrinsics.length; i++) {
     console.log(result0.block.extrinsics[i].data.toString());
   }

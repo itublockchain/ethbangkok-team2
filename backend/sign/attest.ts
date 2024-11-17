@@ -1,5 +1,3 @@
-import { fetchRssData } from "../indexer/src/rssProcessor";
-
 import { signClient, signSchema } from "./signClient";
 
 import { privateKeyToAccount } from "viem/accounts";
@@ -15,8 +13,14 @@ dotenv.config();
 const privateKey = process.env.PRIVATE_KEY!;
 const account = privateKeyToAccount(`0x${privateKey}`);
 
-export async function attest() {
-  const data = await fetchRssData("https://filecoinfoundation.medium.com/feed");
+export async function attest(
+  data: {
+    title: string;
+    content: string;
+    link: string;
+  }[],
+  name: string
+) {
   const info = await delegateSignSchema(signSchema, {
     delegationAccount: account,
     chain: EvmChains.polygonAmoy,
@@ -32,7 +36,7 @@ export async function attest() {
           content: entry.content,
           link: entry.link,
         },
-        indexingValue: "filecoin_medium",
+        indexingValue: name,
       },
       {
         chain: EvmChains.polygonAmoy,
@@ -49,5 +53,3 @@ export async function attest() {
     console.log(delegationCreateAttestationRes);
   }
 }
-
-attest().catch(console.error);
