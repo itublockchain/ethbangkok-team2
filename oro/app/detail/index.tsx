@@ -11,6 +11,7 @@ import { StatusBar } from 'expo-status-bar'
 import { SafeAreaView } from '@/components/core'
 import { formatDate } from '@/utils'
 import { getWidth } from '@/utils/Spacing'
+import { attestations } from '@/constants/Const'
 
 export default function Detail() {
   const { top } = useSafeAreaInsets()
@@ -53,7 +54,7 @@ export default function Detail() {
         </Pressable>
         <Pressable style={styles.redirect_button_container} hitSlop={24} onPress={async () => {
           Haptic.impactAsync()
-          await WebBrowser.openBrowserAsync(`https://testnet-scan.sign.global/attestation/onchain_evm_80002_0x10b`);
+          await WebBrowser.openBrowserAsync(`https://testnet-scan.sign.global/attestation/onchain_evm_80002_${(attestations).find((item) => item.url === state.value.link)?.attestationId}`);
         }}>
           <Text style={styles.redirect_button_text}>
             SEE ATTESTATION
@@ -67,7 +68,7 @@ export default function Detail() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#Ffffff',
+    backgroundColor: '#F6F5F2',
   },
   image: {
     width: '100%',
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
   },
   header_title: {
     fontFamily: 'HelveticaNeue-Black',
-    color: '#ffffff',
+    color: '#F6F5F2',
     fontSize: 32,
     marginBottom: 16,
     zIndex: 2,

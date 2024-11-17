@@ -1,17 +1,17 @@
 import React from 'react'
 import { Link } from 'expo-router'
-import { Text, StyleSheet, ScrollView, ActivityIndicator, View, RefreshControl, FlatList } from 'react-native'
+import { Text, StyleSheet, ActivityIndicator, View, RefreshControl, FlatList } from 'react-native'
 import { useQuery } from '@tanstack/react-query'
 import { LinearGradient } from 'expo-linear-gradient'
 import { getWidth } from '@/utils/Spacing'
-import type { NewsItem } from '@/index'
+// import type { NewsItem } from '@/index'
 
 // Custom Components
 import { SafeAreaView } from '@/components/core'
 import NewsBox from '@/components/ui/NewsBox'
 
 // API
-import { News } from "@/utils"
+// import { News } from "@/utils"
 import { getNews } from '@/client/akave'
 
 type Props = {}
@@ -24,7 +24,7 @@ export default function Home({}: Props) {
   // })
 
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ["elma"],
+    queryKey: ["news"],
     queryFn: async () => await getNews("filecoinfoundation.medium.com"),
   })
 
@@ -41,7 +41,7 @@ export default function Home({}: Props) {
       <SafeAreaView style={styles.container}>
           <View style={styles.title_container}>
             <Text style={styles.title}>LIBRE NEWS</Text>
-            <Text style={styles.motto}>uncensorable news source</Text>
+            <Text style={styles.motto}>no censorship, news ownership</Text>
           </View>
           {/* <Link href={"/detail"}>
               <Text>Sayfa değiştir</Text>
@@ -57,7 +57,7 @@ export default function Home({}: Props) {
     <SafeAreaView style={styles.container}>
         <View style={styles.title_container}>
           <Text style={styles.title}>LIBRE NEWS</Text>
-          <Text style={styles.motto}>uncensorable news source</Text>
+          <Text style={styles.motto}>no censorship, news ownership</Text>
         </View>
         {/* <Link href={"/detail"}>
             <Text>Sayfa değiştir</Text>

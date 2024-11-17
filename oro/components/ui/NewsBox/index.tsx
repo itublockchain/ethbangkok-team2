@@ -12,7 +12,7 @@ type Props = {
 export default function NewsBox({ item }: Props) {
   const dispatch = useDispatch()
 
-//   console.log(item)
+//   console.log(item.link)
 
   return (
     <Link href={{
